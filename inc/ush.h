@@ -23,6 +23,7 @@
 #include <grp.h>
 
 #define USH_BUFSIZE 1024
+#define LINE_DELIM " \t\r\n\a"
 
 
 typedef struct get_line {
@@ -34,7 +35,9 @@ typedef struct get_line {
 
 
 
-void         mx_ush_loop (void);
-char         *mx_ush_read_line(void);
+void         mx_ush_loop (void); // базовый цикл
+char         *mx_ush_read_line(void); // парсинг вводимых данных
+char         **mx_split_argv(char *line); //сплит линии на аргументы
+int          mx_launch_process(char **argv);
 
 #endif
