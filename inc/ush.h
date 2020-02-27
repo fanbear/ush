@@ -22,7 +22,19 @@
 #include <pwd.h>
 #include <grp.h>
 
+#define USH_BUFSIZE 1024
 
-void     ush_loop (void); 
+
+typedef struct get_line {
+	char *line;
+	char **args;
+	int status;
+
+} g_line;
+
+
+
+void         mx_ush_loop (void);
+char         *mx_ush_read_line(void);
 
 #endif

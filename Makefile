@@ -8,6 +8,8 @@ INCLIB = libmx/libmx.a
 
 SRC = \
 main.c \
+mx_ush_loop.c \
+mx_ush_read_line.c \
 
 SRCS = $(addprefix src/, $(SRC))
 
