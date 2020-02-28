@@ -110,18 +110,26 @@
 #define USH_BUFSIZE 1024
 #define LINE_DELIM " \t\r\n\a"
 
-// Данные парсинга и команды на выполенине
+// Данные парсинга
 typedef struct get_line {
 	char *line; //строка из потока ввода
 	char **args; //строка разбитая на аргументы
-	char **cmd_str; // строка команд
+} t_line;
 
-} g_line;
-
+// Данные команд, ф-й на исполнение и флагов этих команд
+typedef struct flag_and_function {
+	char **cmd_str;
+	char **cmd_flag;
+	int (*cmd_func[]) (void **);
+} t_cmd;
 
 void         mx_ush_loop (void); // базовый цикл
 char         *mx_ush_read_line(void); // парсинг вводимых данных
 char         **mx_split_argv(char *line); //сплит линии на аргументы
-int          mx_launch_process(char **argv);
+int          mx_launch_process(char **argv); // запуск дочернего процеса
+void         mx_check_flag (t_line *g_line); //проверка флагов
+int         mx_print_pwd(void);
+
+
 
 #endif

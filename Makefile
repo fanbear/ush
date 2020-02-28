@@ -12,6 +12,8 @@ mx_ush_loop.c \
 mx_ush_read_line.c \
 mx_split_argv.c \
 mx_launch_process.c \
+mx_check_flag.c \
+mx_print_pwd.c \
 
 SRCS = $(addprefix src/, $(SRC))
 
