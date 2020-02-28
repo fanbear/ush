@@ -17,7 +17,7 @@ static void print_cmd(t_line *g_line, t_cmd *cmd) {
 		if (mx_strcmp(g_line->args[0], cmd->cmd_str[i]) == 0) 
 			sw = i;
 	if (sw == 0)
-		printf("%s\n", "cd$");
+		mx_change_dir(g_line);
 	else if (sw == 1)
 		mx_print_pwd();
 	else if (sw == 2)
@@ -29,11 +29,6 @@ static void print_cmd(t_line *g_line, t_cmd *cmd) {
 	else if (sw == 5)
 		printf("%s\n", "env$");
 }
-
-// static void get_cmd_func(t_cmd *cmd) {
-// 	int (*str[]) (void) = {&mx_print_pwd};
-// 	cmd->cmd_func = str;
-// }
 
 void mx_check_flag(t_line *g_line) {
 	t_cmd  *cmd = malloc(sizeof(t_cmd));

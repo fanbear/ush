@@ -120,7 +120,7 @@ typedef struct get_line {
 typedef struct flag_and_function {
 	char **cmd_str;
 	char **cmd_flag;
-	int (*cmd_func[]) (void **);
+	// int (*cmd_func[]) (void **);
 } t_cmd;
 
 void         mx_ush_loop (void); // базовый цикл
@@ -128,8 +128,9 @@ char         *mx_ush_read_line(void); // парсинг вводимых дан�
 char         **mx_split_argv(char *line); //сплит линии на аргументы
 int          mx_launch_process(char **argv); // запуск дочернего процеса
 void         mx_check_flag (t_line *g_line); //проверка флагов
-int         mx_print_pwd(void);
-
+int          mx_print_pwd(void); //выводит текущее местополжение
+void         mx_change_dir(t_line *g_line); // переходи в папку указаную в аргументе
+int          mx_get_array_size(char **arr);
 
 
 #endif
