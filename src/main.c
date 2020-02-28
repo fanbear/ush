@@ -2,10 +2,10 @@
 
 int main(int argc, char **argv) {
 	//Загрузка конфигураций
-
+	argc += 0;
+	argv[0] = argv[1];
 	//Цыкл команды
-	ush_loop();
-
+	mx_ush_loop();
+	system("leaks -q ush");
 	//Очистка памяти
 }
-	
