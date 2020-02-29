@@ -109,28 +109,35 @@
 
 #define USH_BUFSIZE 1024
 #define LINE_DELIM " \t\r\n\a"
+#define CD_FALG "sP-"
+#define ENV_FLAG "iPu"
+#define PWD_FLAG "LP"
+#define WHICH_FLAG "as"
+#define ECHO_FLAG "nEe"
 
-// Данные парсинга
-typedef struct get_line {
-	char *line; //строка из потока ввода
-	char **args; //строка разбитая на аргументы
-} t_line;
+typedef struct builtin_arr { // структура отформатированого масива для билтов
+	char **arr;
+} bl_arr;
+
+typedef struct command_cd {
+	char **args; //линия разбитая по делиметру
+	char **argv; //аргументы
+	char **flags; //флаги
+} cmd_cd;
 
 // Данные команд, ф-й на исполнение и флагов этих команд
 typedef struct flag_and_function {
 	char **cmd_str;
 	char **cmd_flag;
-	// int (*cmd_func[]) (void **);
 } t_cmd;
 
 void         mx_ush_loop (void); // базовый цикл
 char         *mx_ush_read_line(void); // парсинг вводимых данных
 char         **mx_split_argv(char *line); //сплит линии на аргументы
 int          mx_launch_process(char **argv); // запуск дочернего процеса
-void         mx_check_flag (t_line *g_line); //проверка флагов
 int          mx_print_pwd(void); //выводит текущее местополжение
-void         mx_change_dir(t_line *g_line); // переходи в папку указаную в аргументе
 int          mx_get_array_size(char **arr);
+void         mx_builtin_func(char *line);
 
 
 #endif

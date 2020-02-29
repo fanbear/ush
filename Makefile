@@ -16,6 +16,7 @@ mx_check_flag.c \
 mx_print_pwd.c \
 mx_change_dir.c \
 mx_get_array_size.c \
+mx_builtin_func.c \
 
 SRCS = $(addprefix src/, $(SRC))
 
