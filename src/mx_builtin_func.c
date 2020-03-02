@@ -30,22 +30,25 @@ static void add_to_struct(cmd_bl *cmd, char *line) {
 	int j = 0;
 
 	for(int i = size + 1; line[i]; i++) {
+		if (line[i] == '\n')
+			i++;
 		str[j] = line[i];
 		j++;
 	}
 	cmd->argv = mx_strsplit(str, ' ');
 	for (int i = 0; cmd->argv[i]; i++) {
-		printf("argv = \"%s\"\n", cmd->argv[i]);
 	}
 }
 
 void mx_builtin_func(char *line) {
-	cmd_bl *cmd = malloc(sizeof(cmd_bl)); // надо убрать пробелы спереди и сзади
+	cmd_bl *cmd = malloc(sizeof(cmd_bl));
 
 	add_to_struct(cmd, line);
 
-	if (mx_strcmp(cmd->cmd, "error") == 0)
+	if (mx_strcmp(cmd->cmd, "error") == 0) {
+		printf("aasdasdasd\n");
 		exit(1); //  если левак
+	}
 	if (mx_strcmp(cmd->cmd, "exit") == 0)
 		exit(0); //  + проверка на аргументы
 	if (mx_strcmp(cmd->cmd, "pwd") == 0)
