@@ -1,17 +1,29 @@
 #include "ush.h"
 
-// void mx_change_dir(t_line *g_line) {
-// 	int count = mx_get_array_size(g_line->args);
-// 	char *buff = NULL;
+void mx_change_dir(cmd_bl *cmd) {
+	DIR *dir;
 
-// 	if (count == 3) {
-// 		buff = mx_strjoin("cd: string not in pwd: ", g_line->args[1]);
-// 		perror("src");
-// 	}
-// 	else if (count > 3)
-// 		perror("src");
-// 	else {
-// 		chdir(g_line->args[1]);
-// 		mx_print_pwd();
-// 	}
-// }
+	if (cmd->argv[0] == NULL)
+		mx_ush_loop();
+	dir = opendir(cmd->argv[0]);
+	if (mx_strcmp(cmd->argv[0], "..") == 0) {
+		chdir("..");
+		mx_ush_loop();
+		char s[1000];
+		printf("%s\n", getcwd(s, 1000));
+	}
+	
+    if (!dir) {
+        perror("cd"); //  написать свой
+        write(2, cmd->argv[0], mx_strlen(cmd->argv[0]));
+        mx_ush_loop();
+    }
+	if (cmd->argv[0] != NULL) {
+		chdir(cmd->argv[0]);
+		char s[1000];
+		printf("%s\n", getcwd(s, 1000));
+		mx_ush_loop();
+	}
+} 
+
+// mx_del_extra_spaces(cmd->argv[0])

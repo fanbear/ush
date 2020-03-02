@@ -119,25 +119,20 @@ typedef struct builtin_arr { // структура отформатирован�
 	char **arr;
 } bl_arr;
 
-typedef struct command_cd {
-	char **args; //линия разбитая по делиметру
-	char **argv; //аргументы
-	char **flags; //флаги
-} cmd_cd;
+typedef struct command_built {
+	char *cmd;
+	char **argv;
+	char **falg;
+} cmd_bl;
 
-// Данные команд, ф-й на исполнение и флагов этих команд
-typedef struct flag_and_function {
-	char **cmd_str;
-	char **cmd_flag;
-} t_cmd;
 
 void         mx_ush_loop (void); // базовый цикл
 char         *mx_ush_read_line(void); // парсинг вводимых данных
-char         **mx_split_argv(char *line); //сплит линии на аргументы
 int          mx_launch_process(char **argv); // запуск дочернего процеса
-int          mx_print_pwd(void); //выводит текущее местополжение
+int          mx_print_pwd(cmd_bl *cmd); //выводит текущее местополжение
 int          mx_get_array_size(char **arr);
 void         mx_builtin_func(char *line);
+void         mx_change_dir(cmd_bl *cmd);
 
 
 #endif

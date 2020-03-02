@@ -10,9 +10,7 @@ SRC = \
 main.c \
 mx_ush_loop.c \
 mx_ush_read_line.c \
-mx_split_argv.c \
 mx_launch_process.c \
-mx_check_flag.c \
 mx_print_pwd.c \
 mx_change_dir.c \
 mx_get_array_size.c \
