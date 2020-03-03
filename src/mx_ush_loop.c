@@ -1,23 +1,48 @@
 #include "ush.h"
 
-void mx_ush_loop (void) {
-	g_line *g_line = malloc(sizeof(g_line));
 
-	mx_printstr("ush:> ");
-	char s[100];
-	g_line->line = mx_ush_read_line(); //чтение аргументов
+static int is_builtin(char *line) {
+	char *str[11] = {"exit","fg","unset","export","cd",
+	                "pwd", "echo", "which", "env", NULL };
+	char *ch_str =  malloc(sizeof(char) * 20);
+	int sw = 0;
 
-	g_line->args = mx_split_argv(g_line->line); //разбиваем строку на аргументы
-	
-	g_line->status = 1; // статус работы цикла
-	
-	while (g_line->status) {
-		printf("%s\n", getcwd(s, 100));
-		chdir("/Users/mac/Desktop/ush/src");
-		printf("%s\n", getcwd(s, 100));
-		mx_launch_process(g_line->args);
-		if (mx_launch_process(g_line->args) == 1)
-			mx_printstr("Создан дочерний процес");
-		exit(1);
+	for (int i = 0; line[i] != '\n'; i++) {
+		if (line[i] == ' ')
+			break;
+		ch_str[i] = line[i];
+	}
+	for (int i = 0; str[i]; i++)
+		if (mx_strcmp(ch_str, str[i]) == 0)
+			sw = 1;
+	mx_strdel(&ch_str);
+	return sw;
+}
+
+void mx_ush_loop () {
+	int status = 1;
+	char *line = NULL;
+
+	while (status) {
+		printf("u$h> ");
+		line = mx_ush_read_line(); 												//чтение аргументов
+		if (isatty(0)){ 														// если запуск с ./ush
+			if(is_builtin(line)) 												// если функции относяться к builtin
+				mx_builtin_func(line); 											// запускаем на выполнение ф-и builtin 
+			else {																// если функции надо искать
+				printf("u$h: command  not found: %s", line);
+				mx_ush_loop();
+			}
+		}
+		else { 																	//  если запуск с echo "some text" | ./ush
+			// mx_builtin_func(line); 
+			exit(0);
+		}
+		mx_strdel(&line);
+		// system("leaks -q ush");
+		mx_ush_loop();
 	}
 }
+
+
+
