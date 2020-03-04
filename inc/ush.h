@@ -108,7 +108,7 @@
 #include <malloc/malloc.h>
 
 #define USH_BUFSIZE 1024
-#define LINE_DELIM " \t\r\n\a"
+#define LINE_DELIM "\t\r\n\a"
 #define CD_FALG "sP-"
 #define ENV_FLAG "iPu"
 #define PWD_FLAG "LP"
@@ -128,6 +128,7 @@ typedef struct command_built {
 	char **argv;
 	char **falg;
 	char *home;
+	int exit;
 } cmd_bl;
 
 

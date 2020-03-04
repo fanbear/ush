@@ -5,16 +5,26 @@ static int is_builtin(char *line) {
 	char *str[11] = {"exit","fg","unset","export","cd",
 	                "pwd", "echo", "which", "env", NULL };
 	char *ch_str =  malloc(sizeof(char) * 20);
+	char *dest =  malloc(sizeof(char) * 20);
 	int sw = 0;
-
-	for (int i = 0; line[i] != '\n'; i++) {
-		if (line[i] == ' ')
-			break;
-		ch_str[i] = line[i];
+	int i = 0;
+	for (; line[i]; i++) {
+		if (line[i] != '\n') {
+			ch_str[i] = line[i];
+			ch_str[i + 1] = '\0';
+		}
 	}
-	for (int i = 0; str[i]; i++)
-		if (mx_strcmp(ch_str, str[i]) == 0)
+	for (i = 0; ch_str[i]; i++) {
+		if (ch_str[i] == ' ')
+			break;
+		dest[i] = ch_str[i];
+		dest[i + 1] = '\0';
+	}
+	for (int i = 0; str[i] != NULL; i++) {
+		if (mx_strcmp(dest, str[i]) == 0) {
 			sw = 1;
+		}
+	}
 	mx_strdel(&ch_str);
 	return sw;
 }
