@@ -11,7 +11,7 @@ static int check_flag(cmd_bl *cmd) {
 	return 0;
 }
 
-static int is_dir(char *str) {
+static int is_dir(char *str) { // clean mem
 	struct stat st;
 
 	lstat(str, &st);
@@ -45,12 +45,10 @@ static void mx_dir_or_file(cmd_bl *cmd) { //проверка аргументо�
     	cd_error(NO_F_OR_D, cmd->argv[0], cmd);
     else if (is_dir(cmd->argv[0]) == 5) 	// елси не файл и не существует									
     	cd_error(NO_D, cmd->argv[0], cmd);
-    else if (is_dir(cmd->argv[0]) == 10) // если линк
-    	printf("link\n");
-    else if (got_to_lvl_up(cmd)) { // перейти на уровень выше
-    	chdir("..");
-		mx_ush_loop();
-    }
+    else if (is_dir(cmd->argv[0]) == 10) { // если линк
+    	mx_chage_link_dir_pwd(cmd->argv[0]);
+    else if (got_to_lvl_up(cmd)) // перейти на уровень выше
+    	mx_chage_dir_and_pwd("..");
     else if ((is_dir(cmd->argv[0]) || is_dir(cmd->argv[1])) && !cmd->argv[2]) //если 2 аргумент
 		cd_error(STR_NO_PWD, cmd->argv[0], cmd);
 	else if (cmd->argv[0] && cmd->argv[1] && cmd->argv[2]) { // если 3 аргумента
@@ -59,16 +57,14 @@ static void mx_dir_or_file(cmd_bl *cmd) { //проверка аргументо�
 		cmd->exit = 1;
 		mx_ush_loop();
 	}
-	else {
-		chdir(cmd->argv[0]);
-    	mx_ush_loop();
-	}
+	else //перейти по аргументу
+    	mx_chage_dir_and_pwd(cmd->argv[0]);
 }
 
 void mx_change_dir(cmd_bl *cmd) {
-	if ((!cmd->argv[0] || mx_strcmp(cmd->argv[0], "--") == 0)){ //cd && cd --
-		chdir(cmd->home);
-		mx_ush_loop();
+	if ((!cmd->argv[0] || mx_strcmp(cmd->argv[0], "--") == 0) ||
+	mx_strcmp(cmd->argv[0], "~") == 0) { //cd && cd -- && cd ~
+		mx_chage_dir_and_pwd(getenv("HOME"));
 	}
 	else if (check_flag(cmd) == 1)
 		printf("flag\n");																					

@@ -15,6 +15,8 @@ mx_print_pwd.c \
 mx_change_dir.c \
 mx_get_array_size.c \
 mx_builtin_func.c \
+mx_chage_dir_and_pwd.c \
+mx_chage_link_dir_pwd.c \
 
 SRCS = $(addprefix src/, $(SRC))
 

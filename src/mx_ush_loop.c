@@ -45,7 +45,7 @@ void mx_ush_loop () {
 			}
 		}
 		else { 																	//  если запуск с echo "some text" | ./ush
-			// mx_builtin_func(line); 
+			printf("asd\n"); 
 			exit(0);
 		}
 		mx_strdel(&line);

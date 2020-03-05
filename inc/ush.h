@@ -139,6 +139,7 @@ int          mx_print_pwd(cmd_bl *cmd); //выводит текущее мест
 int          mx_get_array_size(char **arr);
 void         mx_builtin_func(char *line);
 void         mx_change_dir(cmd_bl *cmd);
-
+void         mx_chage_dir_and_pwd(char *str); // изменить каталог и pwd
+void         mx_chage_link_dir_pwd(char *str); // перейти по линку и поменять pwd
 
 #endif
