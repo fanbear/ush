@@ -127,7 +127,6 @@ typedef struct command_built {
 	char *cmd;
 	char **argv;
 	char **falg;
-	char *home;
 	int exit;
 } cmd_bl;
 

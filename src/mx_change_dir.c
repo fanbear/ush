@@ -45,7 +45,7 @@ static void mx_dir_or_file(cmd_bl *cmd) { //проверка аргументо�
     	cd_error(NO_F_OR_D, cmd->argv[0], cmd);
     else if (is_dir(cmd->argv[0]) == 5) 	// елси не файл и не существует									
     	cd_error(NO_D, cmd->argv[0], cmd);
-    else if (is_dir(cmd->argv[0]) == 10) { // если линк
+    else if (is_dir(cmd->argv[0]) == 10) // если линк
     	mx_chage_link_dir_pwd(cmd->argv[0]);
     else if (got_to_lvl_up(cmd)) // перейти на уровень выше
     	mx_chage_dir_and_pwd("..");
